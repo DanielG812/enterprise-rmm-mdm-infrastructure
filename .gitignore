@@ -1,0 +1,16 @@
+# Credenciales y variables de entorno reales
+.env
+*.env
+!.env.example
+
+# Llaves de seguridad y certificados
+*.pem
+*.crt
+*.key
+id_ed25519*
+
+# Logs y datos de contenedores
+data/
+volumes/
+logs/
+*.log
