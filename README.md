@@ -1,21 +1,28 @@
-# Infraestructura Unificada de Gestión de TI (RMM, MDM & RustDesk On-Premises)
+# 🚀 Infraestructura Unificada On-Premises: RMM, MDM & Control Remoto
 
-Este repositorio documenta la arquitectura e implementación de una solución integral de gestión remota de TI y dispositivos móviles empresariales desplegada sobre Debian 12 con contenedores Docker.
+![Debian 12](https://img.shields.io/badge/OS-Debian%2012-A81D33?style=flat-square&logo=debian&logoColor=white)
+![Docker](https://img.shields.io/badge/Orchestration-Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
+![Breeze RMM](https://img.shields.io/badge/RMM-Breeze-blue?style=flat-square)
+![Headwind MDM](https://img.shields.io/badge/MDM-Headwind-green?style=flat-square)
+![RustDesk](https://img.shields.io/badge/Remote-RustDesk-orange?style=flat-square)
 
-## Arquitectura de la Solución
-* Sistema Operativo: Debian 12 (Server)
-* Orquestación: Docker & Docker Compose
-* RMM (Monitoreo y Gestión): Breeze RMM
-* MDM (Gestión de Dispositivos Android): Headwind MDM Community
-* Control Remoto Desatendido: Servidor RustDesk OSS (Self-hosted)
+Repositorio oficial que documenta la arquitectura, diseño y despliegue de una solución integral de infraestructura de TI centralizada y autohospedada (On-Premises), orientada a la gestión unificada de estaciones de trabajo, servidores y dispositivos móviles corporativos de forma segura y automatizada.
 
-## Despliegue Rápido
-1. Clona el repositorio:
-   git clone [https://github.com/DanielG812/enterprise-rmm-mdm-infrastructure.git](https://github.com/DanielG812/enterprise-rmm-mdm-infrastructure.git)
-   cd enterprise-rmm-mdm-infrastructure
+---
 
-2. Configura tus variables a partir de la plantilla:
-   cp .env.example .env
+## 📐 Arquitectura de la Solución
 
-3. Inicia los servicios con Docker Compose:
-   docker compose up -d
+La infraestructura opera sobre un servidor dedicado con **Debian 12**, utilizando contenedores **Docker** y un Proxy Inverso HTTPS para garantizar aislamiento de servicios, escalabilidad y seguridad perimetral.
+
+```text
+       Internet / Red Externa (IP Pública)
+                 │
+      [ Firewall / MikroTik ] (NAT / Puertos 80, 443)
+                 │
+       [ Servidor Debian 12 ] (IP LAN: 192.168.176.221)
+                 │
+     [ Nginx Proxy Manager ] (Reverse Proxy & SSL Let's Encrypt)
+         │               │              │
+         ├──────► [ Breeze RMM ]        │ (Supervisión de PCs y Servidores)
+         ├──────► [ Headwind MDM ]      │ (Gestión de Dispositivos Android / Kiosk)
+         └──────► [ RustDesk Server ]   │ (Control Remoto Desatendido OSS)
